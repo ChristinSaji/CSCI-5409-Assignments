@@ -1,4 +1,4 @@
-FROM python
+FROM python:slim
 WORKDIR /app
 COPY app1.py /app
 RUN pip install flask requests
