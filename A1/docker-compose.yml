@@ -1,0 +1,24 @@
+services:
+  container1:
+    image: christinsaji/container1
+    container_name: container1
+    ports:
+      - "6000:6000"
+    volumes:
+      - .:/data
+    networks:
+      - assignment-network
+
+  container2:
+    image: christinsaji/container2
+    container_name: container2
+    ports:
+      - "6001:6001"
+    volumes:
+      - .:/data
+    networks:
+      - assignment-network
+
+networks:
+  assignment-network:
+    driver: bridge
