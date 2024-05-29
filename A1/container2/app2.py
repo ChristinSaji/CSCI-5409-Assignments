@@ -1,5 +1,4 @@
 from flask import Flask, request, jsonify
-import csv
 
 app = Flask(__name__)
 
@@ -11,11 +10,22 @@ def sum_product():
     
     try:
         total = 0
-        with open(f'/data/{file_name}', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                if row['product'] == product:
-                    total += int(row['amount'])
+        with open(f'/data/{file_name}', 'r') as csvfile:
+            lines = csvfile.readlines()
+            
+            header = lines[0].strip().split(',')
+            if header != ['product', 'amount']:
+                raise ValueError("File is not in CSV format")
+            
+            for line in lines[1:]:
+                columns = line.strip().split(',')
+                if len(columns) != 2:
+                    raise ValueError("File is not in CSV format")
+                
+                row_product, row_amount = columns
+                if row_product == product:
+                    total += int(row_amount)
+        
         return jsonify({"file": file_name, "sum": total})
     except Exception as e:
         return jsonify({"file": file_name, "error": "Input file not in CSV format."}), 400
