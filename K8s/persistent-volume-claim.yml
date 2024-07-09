@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: k8s-pvc
+spec:
+  volumeName: k8s-pv
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard
+  selector:
+    matchLabels:
+      name: k8s-pvc
