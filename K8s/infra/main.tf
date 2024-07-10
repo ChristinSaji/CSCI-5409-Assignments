@@ -1,3 +1,10 @@
+resource "google_compute_disk" "k8s_disk" {
+  name  = "k8s-cluster-disk"
+  zone  = var.gcp_zone
+  type  = var.gke_disk_type
+  size  = var.persistent_disk_size
+}
+
 resource "google_container_cluster" "k8s" {
   name     = "k8s-cluster"
   location = var.gcp_zone

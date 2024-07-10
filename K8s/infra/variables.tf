@@ -14,6 +14,11 @@ variable "gcp_zone" {
   description = "GCP zone"
 }
 
+variable "persistent_disk_size" {
+  default     = 10
+  description = "Disk size (in GB) for the persistent disk"
+}
+
 variable "gke_image_type" {
   default     = "COS_CONTAINERD"
   description = "Image type for the GKE nodes"
