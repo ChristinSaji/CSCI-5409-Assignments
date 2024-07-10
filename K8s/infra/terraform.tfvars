@@ -1,0 +1,9 @@
+gcp_svc_key      = "../k8s-assignment-428917-026c1bfe0279.json"
+gcp_project      = "k8s-assignment-428917"
+gcp_region       = "us-central1"
+gcp_zone         = "us-central1-a"
+gke_image_type   = "COS_CONTAINERD"
+gke_machine_type = "e2-small"
+gke_disk_size    = 20
+gke_disk_type = "pd-standard"
+gke_num_nodes    = 1
