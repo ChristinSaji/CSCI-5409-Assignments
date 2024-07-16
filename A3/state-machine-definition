@@ -1,0 +1,59 @@
+{
+  "Comment": "A description of my state machine",
+  "StartAt": "ChoiceState",
+  "States": {
+    "ChoiceState": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.action",
+          "StringEquals": "sha256",
+          "Next": "SHA256Hash"
+        },
+        {
+          "Variable": "$.action",
+          "StringEquals": "md5",
+          "Next": "MD5Hash"
+        },
+        {
+          "Variable": "$.action",
+          "StringEquals": "bcrypt",
+          "Next": "BcryptHash"
+        }
+      ],
+      "Default": "ErrorState"
+    },
+    "SHA256Hash": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:700690205031:function:SHA256Hash",
+      "Parameters": {
+        "value.$": "$.value",
+        "course_uri.$": "$.course_uri"
+      },
+      "End": true
+    },
+    "MD5Hash": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:700690205031:function:MD5Hash",
+      "Parameters": {
+        "value.$": "$.value",
+        "course_uri.$": "$.course_uri"
+      },
+      "End": true
+    },
+    "BcryptHash": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:700690205031:function:BcryptHash",
+      "Parameters": {
+        "value.$": "$.value",
+        "course_uri.$": "$.course_uri"
+      },
+      "End": true
+    },
+    "ErrorState": {
+      "Type": "Fail",
+      "Error": "Invalid Action",
+      "Cause": "No matching action found."
+    }
+  }
+}
