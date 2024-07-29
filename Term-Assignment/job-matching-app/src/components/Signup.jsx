@@ -1,12 +1,33 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UserPool from "../userpool";
+import Notification from "./Notification";
 
 function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notification, setNotification] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    UserPool.signUp(email, password, [], null, (err, data) => {
+      if (err) {
+        setNotification({ message: "Error signing up", type: "error" });
+      } else {
+        setNotification({
+          message: "Signed up successfully!",
+          type: "success",
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
+      }
+    });
+  };
+
+  const closeNotification = () => {
+    setNotification(null);
   };
 
   return (
@@ -15,6 +36,13 @@ function Signup() {
         <h1 className="text-3xl font-bold text-center text-indigo-800">
           Signup
         </h1>
+        {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+            onClose={closeNotification}
+          />
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-1">
             <label

@@ -1,12 +1,46 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import UserPool from "../userpool";
+import Notification from "./Notification";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [notification, setNotification] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const user = new CognitoUser({ Username: email, Pool: UserPool });
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
+
+    user.authenticateUser(authDetails, {
+      onSuccess: (data) => {
+        console.log("onSuccess:", data);
+        setNotification({
+          message: "Logged in successfully!",
+          type: "success",
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      },
+      onFailure: (err) => {
+        console.error("onFailure:", err);
+        setNotification({ message: "Error logging in", type: "error" });
+      },
+      newPasswordRequired: (data) => {
+        console.log("newPasswordRequired:", data);
+      },
+    });
+  };
+
+  const closeNotification = () => {
+    setNotification(null);
   };
 
   return (
@@ -15,6 +49,13 @@ function Login() {
         <h1 className="text-3xl font-bold text-center text-indigo-800">
           Login
         </h1>
+        {notification && (
+          <Notification
+            message={notification.message}
+            type={notification.type}
+            onClose={closeNotification}
+          />
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-1">
             <label
