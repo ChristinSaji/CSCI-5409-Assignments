@@ -16,11 +16,12 @@ function Signup() {
         setNotification({ message: "Error signing up", type: "error" });
       } else {
         setNotification({
-          message: "Signed up successfully!",
+          message:
+            "Signed up successfully! Please check your email for verification code.",
           type: "success",
         });
         setTimeout(() => {
-          navigate("/login");
+          navigate("/verify-email", { state: { email } });
         }, 3000);
       }
     });
