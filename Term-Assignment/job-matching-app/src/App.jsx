@@ -6,6 +6,7 @@ import VerifyEmail from "./components/VerifyEmail";
 import RequestPasswordReset from "./components/RequestPasswordReset";
 import ConfirmPasswordReset from "./components/ConfirmPasswordReset";
 import Dashboard from "./components/Dashboard";
+import History from "./components/History";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           element={<ConfirmPasswordReset />}
         />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/history" element={<History />} />
         <Route path="/" element={<Login />} />
       </Routes>
     </Router>
