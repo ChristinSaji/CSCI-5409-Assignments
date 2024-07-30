@@ -11,7 +11,7 @@ function Signup() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    UserPool.signUp(email, password, [], null, (err, data) => {
+    UserPool.signUp(email, password, [], null, (err) => {
       if (err) {
         setNotification({ message: "Error signing up", type: "error" });
       } else {

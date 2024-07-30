@@ -19,22 +19,17 @@ function Login() {
     });
 
     user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log("onSuccess:", data);
+      onSuccess: () => {
         setNotification({
           message: "Logged in successfully!",
           type: "success",
         });
         setTimeout(() => {
-          navigate("/");
-        }, 3000);
+          navigate("/dashboard");
+        }, 1000);
       },
-      onFailure: (err) => {
-        console.error("onFailure:", err);
+      onFailure: () => {
         setNotification({ message: "Error logging in", type: "error" });
-      },
-      newPasswordRequired: (data) => {
-        console.log("newPasswordRequired:", data);
       },
     });
   };
@@ -100,6 +95,11 @@ function Login() {
           Don't have an account?{" "}
           <Link to="/signup" className="text-indigo-800">
             Sign up
+          </Link>
+        </p>
+        <p className="text-center mt-4">
+          <Link to="/request-password-reset" className="text-indigo-800">
+            Forgot Password?
           </Link>
         </p>
       </div>
