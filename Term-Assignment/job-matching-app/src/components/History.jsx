@@ -2,29 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 
 function History() {
-  const historyData = [
-    {
-      id: 1,
-      companyName: "Company A",
-      jobTitle: "Cloud Engineer",
-      resume: "resume_a.pdf",
-      matchingScore: "100%",
-    },
-    {
-      id: 2,
-      companyName: "Company A",
-      jobTitle: "Software Engineer",
-      resume: "resume_b.pdf",
-      matchingScore: "95%",
-    },
-    {
-      id: 3,
-      companyName: "Company B",
-      jobTitle: "Data Scientist",
-      resume: "resume_c.pdf",
-      matchingScore: "90%",
-    },
-  ];
+  const historyData = [];
 
   return (
     <div>

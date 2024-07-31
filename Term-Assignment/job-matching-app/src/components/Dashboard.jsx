@@ -6,7 +6,7 @@ function Dashboard() {
   const [jobTitle, setJobTitle] = useState("");
   const [jobDescription, setJobDescription] = useState("");
   const [resume, setResume] = useState(null);
-  const [matchingScore, setMatchingScore] = useState("100%");
+  const [matchingScore, setMatchingScore] = useState(null);
 
   const handleResumeUpload = (e) => {
     setResume(e.target.files[0]);
